@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { ConfigCard } from "./config-card"
-import { Gamepad2, Radio, Wifi, Activity } from "lucide-react"
+import { Gamepad2, Radio, Wifi, Activity, Bluetooth } from "lucide-react" // Added Bluetooth icon
 import { useConfig } from "@/lib/config-context"
 import { cn } from "@/lib/utils"
 import { Slider } from "@/components/ui/slider"
@@ -22,6 +22,18 @@ const CONTROLLER_TYPES = [
     name: "ESP-NOW",
     description: "Direct ESP32 to ESP32 communication",
     icon: Wifi,
+  },
+  {
+    id: "wifi" as const,
+    name: "WiFi",
+    description: "WiFi UDP/TCP control protocol",
+    icon: Wifi,
+  },
+  {
+    id: "bluetooth" as const,
+    name: "Bluetooth Classic",
+    description: "Bluetooth SPP serial communication",
+    icon: Bluetooth,
   },
 ]
 

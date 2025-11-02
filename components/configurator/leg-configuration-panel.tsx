@@ -149,6 +149,17 @@ export function LegConfigurationPanel() {
                       />
                     </div>
 
+                    <div className="pt-2 pb-2 flex items-center justify-between border-b border-border">
+                      <Label htmlFor={`${servoType}-reversed`} className="text-xs uppercase font-medium">
+                        Reverse Direction
+                      </Label>
+                      <Switch
+                        id={`${servoType}-reversed`}
+                        checked={servo.reversed}
+                        onCheckedChange={(checked) => handleServoUpdate(servoType, "reversed", checked)}
+                      />
+                    </div>
+
                     <div>
                       <div className="flex items-center justify-between mb-2">
                         <Label className="text-xs uppercase">Min Position</Label>
@@ -191,17 +202,6 @@ export function LegConfigurationPanel() {
                         max={2500}
                         step={10}
                         className="w-full"
-                      />
-                    </div>
-
-                    <div className="pt-2 flex items-center justify-between">
-                      <Label htmlFor={`${servoType}-reversed`} className="text-xs uppercase">
-                        Reverse Direction
-                      </Label>
-                      <Switch
-                        id={`${servoType}-reversed`}
-                        checked={servo.reversed}
-                        onCheckedChange={(checked) => handleServoUpdate(servoType, "reversed", checked)}
                       />
                     </div>
                   </div>

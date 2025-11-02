@@ -36,7 +36,7 @@ export interface HexapodConfig {
 
   // Controller Settings
   controller: {
-    type: "flysky" | "espnow"
+    type: "flysky" | "espnow" | "wifi" | "bluetooth" // Added wifi and bluetooth controller types
     channels: { [key: string]: number }
     deadzone: number
   }
