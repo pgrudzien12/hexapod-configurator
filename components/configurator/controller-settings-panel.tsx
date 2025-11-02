@@ -69,7 +69,7 @@ export function ControllerSettingsPanel() {
                     <Icon className="size-5" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-display text-base uppercase mb-1">{type.name}</h4>
+                    <h4 className="font-display text-base uppercase mb-1 font-mono">{type.name}</h4>
                     <p className="text-sm text-muted-foreground">{type.description}</p>
                   </div>
                 </button>

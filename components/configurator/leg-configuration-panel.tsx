@@ -57,7 +57,7 @@ export function LegConfigurationPanel() {
                     : "border-border hover:border-primary/50",
                 )}
               >
-                <div className="font-display text-sm uppercase">{LEG_NAMES[idx]}</div>
+                <div className="font-display text-sm uppercase font-mono">{LEG_NAMES[idx]}</div>
                 <div className="text-xs text-muted-foreground mt-1">
                   {config.legs[legId].enabled ? "Enabled" : "Disabled"}
                 </div>

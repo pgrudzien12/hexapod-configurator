@@ -88,7 +88,7 @@ export function DashboardSidebar({ className, ...props }: React.ComponentProps<t
           <MonkeyIcon className="size-10 group-hover:scale-[1.7] origin-top-left transition-transform" />
         </div>
         <div className="grid flex-1 text-left text-sm leading-tight">
-          <span className="text-2xl font-display">HEXAPOD</span>
+          <span className="font-display text-5xl">HEXAPOD</span>
           <span className="text-xs uppercase">Configurator v1.0</span>
         </div>
       </SidebarHeader>

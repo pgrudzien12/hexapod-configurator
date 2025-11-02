@@ -177,7 +177,7 @@ export function ConfigManagementPanel() {
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1">
-                    <h4 className="font-display text-sm uppercase">{profile.name}</h4>
+                    <h4 className="font-display text-sm uppercase font-mono">{profile.name}</h4>
                     <p className="text-xs text-muted-foreground mt-1">{profile.description}</p>
                   </div>
                   <span className="text-xs px-2 py-0.5 rounded bg-muted text-muted-foreground">{profile.version}</span>

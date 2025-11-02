@@ -20,7 +20,7 @@ export function ConfigCard({ title, description, icon: Icon, children, className
           </div>
         )}
         <div className="flex-1">
-          <h3 className="text-lg font-display uppercase">{title}</h3>
+          <h3 className="font-display uppercase text-3xl font-mono font-extrabold">{title}</h3>
           {description && <p className="text-sm text-muted-foreground mt-1">{description}</p>}
         </div>
       </div>

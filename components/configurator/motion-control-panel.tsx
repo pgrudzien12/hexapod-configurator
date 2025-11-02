@@ -54,7 +54,7 @@ export function MotionControlPanel() {
                 )}
               >
                 <div className="flex items-start justify-between mb-2">
-                  <h4 className="font-display text-base uppercase">{gait.name}</h4>
+                  <h4 className="font-display text-base uppercase font-mono">{gait.name}</h4>
                   <div className="flex gap-2">
                     <span className="px-2 py-0.5 text-xs rounded bg-muted text-muted-foreground">{gait.speed}</span>
                     <span className="px-2 py-0.5 text-xs rounded bg-muted text-muted-foreground">{gait.stability}</span>
