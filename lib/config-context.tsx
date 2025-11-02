@@ -8,9 +8,19 @@ export interface HexapodConfig {
   legs: {
     [key: string]: {
       servos: {
-        coxa: { min: number; max: number; center: number; reversed: boolean }
-        femur: { min: number; max: number; center: number; reversed: boolean }
-        tibia: { min: number; max: number; center: number; reversed: boolean }
+        coxa: { min: number; max: number; center: number; reversed: boolean; pin: number }
+        femur: { min: number; max: number; center: number; reversed: boolean; pin: number }
+        tibia: { min: number; max: number; center: number; reversed: boolean; pin: number }
+      }
+      geometry: {
+        len_coxa: number // distance from hip yaw joint to femur joint (meters)
+        len_femur: number // thigh length (meters)
+        len_tibia: number // shank length (meters)
+      }
+      offsets: {
+        coxa_offset_rad: number // coxa servo calibration offset (radians)
+        femur_offset_rad: number // femur servo calibration offset (radians)
+        tibia_offset_rad: number // tibia servo calibration offset (radians)
       }
       enabled: boolean
     }
@@ -55,49 +65,109 @@ const defaultConfig: HexapodConfig = {
   legs: {
     "leg-1": {
       servos: {
-        coxa: { min: 500, max: 2500, center: 1500, reversed: false },
-        femur: { min: 500, max: 2500, center: 1500, reversed: false },
-        tibia: { min: 500, max: 2500, center: 1500, reversed: false },
+        coxa: { min: 500, max: 2500, center: 1500, reversed: false, pin: 0 },
+        femur: { min: 500, max: 2500, center: 1500, reversed: false, pin: 1 },
+        tibia: { min: 500, max: 2500, center: 1500, reversed: false, pin: 2 },
+      },
+      geometry: {
+        len_coxa: 0.05, // 50mm default
+        len_femur: 0.08, // 80mm default
+        len_tibia: 0.12, // 120mm default
+      },
+      offsets: {
+        coxa_offset_rad: 0.0,
+        femur_offset_rad: 0.0,
+        tibia_offset_rad: 0.0,
       },
       enabled: true,
     },
     "leg-2": {
       servos: {
-        coxa: { min: 500, max: 2500, center: 1500, reversed: false },
-        femur: { min: 500, max: 2500, center: 1500, reversed: false },
-        tibia: { min: 500, max: 2500, center: 1500, reversed: false },
+        coxa: { min: 500, max: 2500, center: 1500, reversed: false, pin: 3 },
+        femur: { min: 500, max: 2500, center: 1500, reversed: false, pin: 4 },
+        tibia: { min: 500, max: 2500, center: 1500, reversed: false, pin: 5 },
+      },
+      geometry: {
+        len_coxa: 0.05,
+        len_femur: 0.08,
+        len_tibia: 0.12,
+      },
+      offsets: {
+        coxa_offset_rad: 0.0,
+        femur_offset_rad: 0.0,
+        tibia_offset_rad: 0.0,
       },
       enabled: true,
     },
     "leg-3": {
       servos: {
-        coxa: { min: 500, max: 2500, center: 1500, reversed: false },
-        femur: { min: 500, max: 2500, center: 1500, reversed: false },
-        tibia: { min: 500, max: 2500, center: 1500, reversed: false },
+        coxa: { min: 500, max: 2500, center: 1500, reversed: false, pin: 6 },
+        femur: { min: 500, max: 2500, center: 1500, reversed: false, pin: 7 },
+        tibia: { min: 500, max: 2500, center: 1500, reversed: false, pin: 8 },
+      },
+      geometry: {
+        len_coxa: 0.05,
+        len_femur: 0.08,
+        len_tibia: 0.12,
+      },
+      offsets: {
+        coxa_offset_rad: 0.0,
+        femur_offset_rad: 0.0,
+        tibia_offset_rad: 0.0,
       },
       enabled: true,
     },
     "leg-4": {
       servos: {
-        coxa: { min: 500, max: 2500, center: 1500, reversed: false },
-        femur: { min: 500, max: 2500, center: 1500, reversed: false },
-        tibia: { min: 500, max: 2500, center: 1500, reversed: false },
+        coxa: { min: 500, max: 2500, center: 1500, reversed: false, pin: 9 },
+        femur: { min: 500, max: 2500, center: 1500, reversed: false, pin: 10 },
+        tibia: { min: 500, max: 2500, center: 1500, reversed: false, pin: 11 },
+      },
+      geometry: {
+        len_coxa: 0.05,
+        len_femur: 0.08,
+        len_tibia: 0.12,
+      },
+      offsets: {
+        coxa_offset_rad: 0.0,
+        femur_offset_rad: 0.0,
+        tibia_offset_rad: 0.0,
       },
       enabled: true,
     },
     "leg-5": {
       servos: {
-        coxa: { min: 500, max: 2500, center: 1500, reversed: false },
-        femur: { min: 500, max: 2500, center: 1500, reversed: false },
-        tibia: { min: 500, max: 2500, center: 1500, reversed: false },
+        coxa: { min: 500, max: 2500, center: 1500, reversed: false, pin: 12 },
+        femur: { min: 500, max: 2500, center: 1500, reversed: false, pin: 13 },
+        tibia: { min: 500, max: 2500, center: 1500, reversed: false, pin: 14 },
+      },
+      geometry: {
+        len_coxa: 0.05,
+        len_femur: 0.08,
+        len_tibia: 0.12,
+      },
+      offsets: {
+        coxa_offset_rad: 0.0,
+        femur_offset_rad: 0.0,
+        tibia_offset_rad: 0.0,
       },
       enabled: true,
     },
     "leg-6": {
       servos: {
-        coxa: { min: 500, max: 2500, center: 1500, reversed: false },
-        femur: { min: 500, max: 2500, center: 1500, reversed: false },
-        tibia: { min: 500, max: 2500, center: 1500, reversed: false },
+        coxa: { min: 500, max: 2500, center: 1500, reversed: false, pin: 15 },
+        femur: { min: 500, max: 2500, center: 1500, reversed: false, pin: 16 },
+        tibia: { min: 500, max: 2500, center: 1500, reversed: false, pin: 17 },
+      },
+      geometry: {
+        len_coxa: 0.05,
+        len_femur: 0.08,
+        len_tibia: 0.12,
+      },
+      offsets: {
+        coxa_offset_rad: 0.0,
+        femur_offset_rad: 0.0,
+        tibia_offset_rad: 0.0,
       },
       enabled: true,
     },

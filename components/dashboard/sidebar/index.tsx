@@ -89,7 +89,7 @@ export function DashboardSidebar({ className, ...props }: React.ComponentProps<t
         </div>
         <div className="grid flex-1 text-left text-sm leading-tight">
           <span className="font-display text-5xl">HEXAPOD</span>
-          <span className="text-xs uppercase">Configurator v1.0</span>
+          <span className="text-xs uppercase">Configurator v0.1.0</span>
         </div>
       </SidebarHeader>
 
@@ -165,7 +165,7 @@ export function DashboardSidebar({ className, ...props }: React.ComponentProps<t
                     </div>
                     <div className="group/item pl-3 pr-1.5 pt-2 pb-1.5 flex-1 flex bg-sidebar-accent hover:bg-sidebar-accent-active/75 items-center rounded group-data-[state=open]:bg-sidebar-accent-active group-data-[state=open]:hover:bg-sidebar-accent-active group-data-[state=open]:text-sidebar-accent-foreground">
                       <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate text-xl font-display">{data.user.name}</span>
+                        <span className="truncate text-xl font-display font-mono">{data.user.name}</span>
                         <span className="truncate text-xs uppercase opacity-50 group-hover/item:opacity-100">
                           {data.user.email}
                         </span>

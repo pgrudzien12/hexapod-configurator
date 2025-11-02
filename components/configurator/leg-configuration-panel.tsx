@@ -2,13 +2,14 @@
 
 import { useState } from "react"
 import { ConfigCard } from "./config-card"
-import { Activity, RotateCw, Play, Square } from "lucide-react"
+import { Activity, RotateCw, Play, Square, Ruler } from "lucide-react"
 import { useConfig } from "@/lib/config-context"
 import { cn } from "@/lib/utils"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { LegVisualization } from "./leg-visualization"
 
@@ -27,6 +28,14 @@ export function LegConfigurationPanel() {
 
   const handleServoUpdate = (servoType: (typeof SERVO_TYPES)[number], param: string, value: number | boolean) => {
     updateConfig(`legs.${selectedLeg}.servos.${servoType}.${param}`, value)
+  }
+
+  const handleGeometryUpdate = (param: string, value: number) => {
+    updateConfig(`legs.${selectedLeg}.geometry.${param}`, value)
+  }
+
+  const handleOffsetUpdate = (param: string, value: number) => {
+    updateConfig(`legs.${selectedLeg}.offsets.${param}`, value)
   }
 
   const handleTestServo = (servoType: string) => {
@@ -124,6 +133,24 @@ export function LegConfigurationPanel() {
                   <div className="space-y-4">
                     <div>
                       <div className="flex items-center justify-between mb-2">
+                        <Label htmlFor={`${servoType}-pin`} className="text-xs uppercase">
+                          GPIO Pin Number
+                        </Label>
+                        <span className="text-xs font-mono text-muted-foreground">Pin {servo.pin}</span>
+                      </div>
+                      <Input
+                        id={`${servoType}-pin`}
+                        type="number"
+                        min={0}
+                        max={39}
+                        value={servo.pin}
+                        onChange={(e) => handleServoUpdate(servoType, "pin", Number.parseInt(e.target.value) || 0)}
+                        className="w-full font-mono"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
                         <Label className="text-xs uppercase">Min Position</Label>
                         <span className="text-xs font-mono text-muted-foreground">{servo.min}μs</span>
                       </div>
@@ -182,6 +209,152 @@ export function LegConfigurationPanel() {
               )
             })}
           </Tabs>
+        </ConfigCard>
+
+        {/* Leg Geometry & Offsets */}
+        <ConfigCard title="Leg Geometry & Offsets" icon={Ruler} description="Physical dimensions and calibration">
+          <div className="space-y-6">
+            {/* Geometry Section */}
+            <div>
+              <h4 className="text-sm font-medium uppercase mb-4 text-primary">Link Lengths (meters)</h4>
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label htmlFor="len-coxa" className="text-xs uppercase">
+                      Coxa Length
+                    </Label>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {legConfig.geometry.len_coxa.toFixed(3)}m
+                    </span>
+                  </div>
+                  <Input
+                    id="len-coxa"
+                    type="number"
+                    step="0.001"
+                    min="0"
+                    max="1"
+                    value={legConfig.geometry.len_coxa}
+                    onChange={(e) => handleGeometryUpdate("len_coxa", Number.parseFloat(e.target.value) || 0)}
+                    className="w-full font-mono"
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">Hip yaw to femur joint distance</p>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label htmlFor="len-femur" className="text-xs uppercase">
+                      Femur Length
+                    </Label>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {legConfig.geometry.len_femur.toFixed(3)}m
+                    </span>
+                  </div>
+                  <Input
+                    id="len-femur"
+                    type="number"
+                    step="0.001"
+                    min="0"
+                    max="1"
+                    value={legConfig.geometry.len_femur}
+                    onChange={(e) => handleGeometryUpdate("len_femur", Number.parseFloat(e.target.value) || 0)}
+                    className="w-full font-mono"
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">Thigh length</p>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label htmlFor="len-tibia" className="text-xs uppercase">
+                      Tibia Length
+                    </Label>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {legConfig.geometry.len_tibia.toFixed(3)}m
+                    </span>
+                  </div>
+                  <Input
+                    id="len-tibia"
+                    type="number"
+                    step="0.001"
+                    min="0"
+                    max="1"
+                    value={legConfig.geometry.len_tibia}
+                    onChange={(e) => handleGeometryUpdate("len_tibia", Number.parseFloat(e.target.value) || 0)}
+                    className="w-full font-mono"
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">Shank length</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Offsets Section */}
+            <div className="pt-4 border-t border-border">
+              <h4 className="text-sm font-medium uppercase mb-4 text-primary">Servo Calibration Offsets (radians)</h4>
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label htmlFor="offset-coxa" className="text-xs uppercase">
+                      Coxa Offset
+                    </Label>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {legConfig.offsets.coxa_offset_rad.toFixed(3)} rad
+                    </span>
+                  </div>
+                  <Input
+                    id="offset-coxa"
+                    type="number"
+                    step="0.01"
+                    min="-3.14159"
+                    max="3.14159"
+                    value={legConfig.offsets.coxa_offset_rad}
+                    onChange={(e) => handleOffsetUpdate("coxa_offset_rad", Number.parseFloat(e.target.value) || 0)}
+                    className="w-full font-mono"
+                  />
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label htmlFor="offset-femur" className="text-xs uppercase">
+                      Femur Offset
+                    </Label>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {legConfig.offsets.femur_offset_rad.toFixed(3)} rad
+                    </span>
+                  </div>
+                  <Input
+                    id="offset-femur"
+                    type="number"
+                    step="0.01"
+                    min="-3.14159"
+                    max="3.14159"
+                    value={legConfig.offsets.femur_offset_rad}
+                    onChange={(e) => handleOffsetUpdate("femur_offset_rad", Number.parseFloat(e.target.value) || 0)}
+                    className="w-full font-mono"
+                  />
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <Label htmlFor="offset-tibia" className="text-xs uppercase">
+                      Tibia Offset
+                    </Label>
+                    <span className="text-xs font-mono text-muted-foreground">
+                      {legConfig.offsets.tibia_offset_rad.toFixed(3)} rad
+                    </span>
+                  </div>
+                  <Input
+                    id="offset-tibia"
+                    type="number"
+                    step="0.01"
+                    min="-3.14159"
+                    max="3.14159"
+                    value={legConfig.offsets.tibia_offset_rad}
+                    onChange={(e) => handleOffsetUpdate("tibia_offset_rad", Number.parseFloat(e.target.value) || 0)}
+                    className="w-full font-mono"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </ConfigCard>
       </div>
 
